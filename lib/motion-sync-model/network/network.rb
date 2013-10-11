@@ -40,13 +40,17 @@ module SyncModel
     def execute
       BW::HTTP.send @verb, @url, @options do |response|
 
-      puts "got response #{response.status_code} #{response.status_code.nil?} #{response.status_code.is_a?(Fixnum)}"
+      puts "(#{@verb}) got response #{response.status_code} #{response.status_code.nil?} #{response.status_code.is_a?(Fixnum)}"
         @response = response
         watch_for_csrf_token
 
         if response.status_code == 401
-          auth_action
-          add_to_queue
+          #TODO: auth_action unless priority auth
+          #auth_action
+          #add_to_queue(:auth) #TODO: this needs to be top of the priority it already had - if sync is needed, we still want sync first before a refresh
+        elsif response.status_code.to_s.start_with? "4"
+          #TODO: definitely nope
+          puts "Unexpected status code: #{response.status_code}"
         else
           @callback.call(response)
         end

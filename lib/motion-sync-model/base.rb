@@ -57,10 +57,16 @@ module SyncModel
         fetched_object = nil
 
         if response && response.body
-          json = Json.parse(response.body.to_str)
-          fetched_object = update_or_create(json)
+          begin
+            json = Json.parse(response.body.to_str)
+            fetched_object = update_or_create(json)
+          rescue
+            puts "Non-json response"
+            fetched_object = nil
+          end
         else
-          puts "no response?"
+          #TODO: this shouldn't really be handled here
+          App.alert("Request failed. Check your internet connection and try again.")
         end
         object.call(fetched_object != nil) if object
       end
