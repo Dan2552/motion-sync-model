@@ -17,7 +17,7 @@ module SyncModel
     private
 
     def is_date?
-      @obj.respond_to?(:match) && @obj.match(/(([0-9]{4}-[0-9]{2}-[0-9]{2})|[0-9]{2}:[0-9]{2}:[0-9]{2})/).present?
+      @obj.respond_to?(:match) && !(@obj.match(/(([0-9]{4}-[0-9]{2}-[0-9]{2})|[0-9]{2}:[0-9]{2}:[0-9]{2})/).nil?)
     end
   end
 
