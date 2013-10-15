@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rake'
   gem.add_dependency 'motion-cocoapods'
   gem.add_dependency 'nano-store', '0.6.3'
-  gem.add_dependency 'sugarcube', '1.1.0'
-  gem.add_dependency 'bubble-wrap', '1.3.0'
+  gem.add_dependency 'sugarcube'
+  gem.add_dependency 'bubble-wrap'
   gem.add_dependency 'motion_support'
 end
