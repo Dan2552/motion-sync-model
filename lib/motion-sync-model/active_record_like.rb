@@ -64,6 +64,18 @@ module SyncModel
       def last
         all.last
       end
+
+      def validates *args
+        #TODO: stubbed
+      end
+
+      def accepts_nested_attributes_for *args
+        #TODO: stubbed
+      end
+
+      def before_create *args
+        #TODO: stubbed
+      end
     end
   end
 end

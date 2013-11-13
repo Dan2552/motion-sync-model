@@ -57,3 +57,8 @@ module SyncModel
     end
   end
 end
+
+module ActiveRecord
+  class Base < SyncModel::Base
+  end
+end
