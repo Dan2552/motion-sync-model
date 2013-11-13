@@ -42,6 +42,7 @@ module SyncModel
       #this is actually where()
       def find *args
         if args[0].is_a? Hash
+          args[0] = nested_type_to_database_value(args[0])
           args[0].each do |k,v|
 
             # Convert range to Nanostore format e.g.

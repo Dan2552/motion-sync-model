@@ -33,6 +33,16 @@ module SyncModel
         value
       end
 
+      def nested_type_to_database_value(value)
+        if value.is_a? Hash
+          value.each {|k,v| value[k] = nested_type_to_database_value(v) }
+        elsif value.is_a? Array
+          value.map {|v| nested_type_to_database_value(v) }
+        else
+          type_to_database_value(value)
+        end
+      end
+
     end
   end
 end
