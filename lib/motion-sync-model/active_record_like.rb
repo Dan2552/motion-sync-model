@@ -2,12 +2,6 @@ module SyncModel
   module ActiveRecordLike
 
     def self.included(base)
-      base.class_eval do
-       class << self
-         alias_method :where, :find
-       end
-      end
-
       base.extend(ClassMethods)
     end
 
@@ -45,6 +39,24 @@ module SyncModel
 
     module ClassMethods
 
+      #this is actually where()
+      def find *args
+        if args[0].is_a? Hash
+          args[0].each do |k,v|
+
+            # Convert range to Nanostore format e.g.
+            # TimeEntry.where(time: (one..two))
+            # to
+            # TimeEntry.where(time: { NSFGreaterThan => one, NSFLessThan => two })
+            if v.is_a? Range
+              args[0][k] = { NSFGreaterThan => v.first, NSFLessThan => v.last }
+            end
+          end
+        end
+        super
+      end
+
+      alias_method :where, :find
       def find *args
         where(*args).first
       end
