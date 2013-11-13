@@ -26,7 +26,10 @@ module SyncModel
     def self.parse(str)
       formatter = NSDateFormatter.new
       formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-      formatter.dateFromString "2013-04-01T09:00:00+01:00"
+      date = formatter.dateFromString(str)
+      formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZZ"
+      date ||= formatter.dateFromString(str)
+      date
     end
 
   end

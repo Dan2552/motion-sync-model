@@ -1,5 +1,7 @@
 module SyncModel
   class Base < NanoStore::Model
+    extend RemoteAttributes
+    include TypeConversions
     include ActiveRecordLike
     include Relations
 
