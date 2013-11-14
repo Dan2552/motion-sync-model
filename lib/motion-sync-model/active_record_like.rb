@@ -51,6 +51,9 @@ module SyncModel
             # TimeEntry.where(time: { NSFGreaterThan => one, NSFLessThan => two })
             if v.is_a? Range
               args[0][k] = { NSFGreaterThan => v.first, NSFLessThan => v.last }
+              return super +
+                where(k => { NSFEqualTo => v.first }) +
+                where(k => { NSFEqualTo => v.last })
             end
           end
         end
